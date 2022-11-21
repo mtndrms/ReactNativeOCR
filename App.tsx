@@ -1,40 +1,19 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import HomeTabs from './src/navigation/navigator';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const [state, setState] = useState<{
-    loading: boolean;
-    image: string | null;
-    toast: {
-      message: string;
-      isVisible: boolean;
-    };
-    textRecognition: [] | null;
-  }>({
-    loading: false,
-    image: null,
-    textRecognition: null,
-    toast: {
-      message: '..',
-      isVisible: false,
-    },
-  });
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={'HomeTabs'}
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name="HomeTabs" component={HomeTabs} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
